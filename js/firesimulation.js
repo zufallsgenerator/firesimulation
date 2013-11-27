@@ -23,7 +23,7 @@ window.main = (function() {
   function setInputValuesFromObject(obj) {
     $("input").each(function(idx, field) {
       if (obj[field.id] !== undefined) {
-        if (field.hasOwnProperty("checked")) {
+        if ($(field).prop("checked") !== undefined) {
           $(field).prop("checked", Boolean(obj[field.id]));
         } else {
           $(field).prop("value", obj[field.id]);
@@ -36,7 +36,7 @@ window.main = (function() {
     var fire, propId;
     $("input").on("change", function(evt) {
       var newValue;
-      if (evt.target.hasOwnProperty("checked")) {
+      if (evt.target.checked !== undefined) {
         newValue = Boolean(evt.target.checked);
       } else {
         newValue = parseInt(evt.target.value, 10);
