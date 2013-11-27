@@ -1,1 +1,157 @@
-My github page
+<!DOCTYPE html>
+<html>
+<head>
+<title>HTML5 Canvas Fire Simulation</title>
+<link rel="stylesheet" href="js/lib/bootstrap/css/bootstrap.min.css" media="screen">
+<meta name="author" content="Christer Bystrom">
+
+</head>
+<body>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+<div style="background: black; width: 100%;">
+
+
+    <div class="container">
+        <div style="float: left">
+        <canvas id="mycanvas" width="120px" height="480px"></canvas>
+        <div class="well well-sm" style="width: 120px;">FPS: <b id="fps">...</b></div>
+        </div>
+        <div class="container well" style="margin-left: 150px">
+        <h1>A fire simulation using HTML5 canvas and javascript</h1>
+        <p>If you're using a fairly new browser, you should see a cartoonish fire simulation to the left. When you're done playing with it,
+        you can scroll down and read about it.</p>
+        <div class="row">
+
+          <div class="col-md-4">
+            <h2>Simulation options</h2>
+            <ul class="list-group">
+                <li class="list-group-item"><input type="checkbox" id="runsimulation"></input> <label for="runsimulation">Run simulation</label>
+                    <p>Run the actual fire simulation.</p>
+                </li>
+                <li class="list-group-item"><input type="checkbox" id="dopaint"></input> <label for="dopaint">Do draw</label>
+                    <p>Run paint updates</p>
+                </li>
+                <li class="list-group-item"><input type="checkbox" id="useintensitymodulation"></input> <label for="useintensitymodulation">Use fire intensity modulation</label>
+                    <p>Modulate the intensity of the fire over time. This can cause uneven cpu load.</p>
+                </li>
+                <li class="list-group-item">
+                    <button id="boostbutton" class="btn btn-danger">BOOST!</button>
+                    Interact with the fire.
+                </li>
+            </ul>
+         </div>
+         <div class="col-md-4">
+            <h2>Optimization settings</h2>
+            <p>Toggle the optimization settings to see the impact they have on the frame rate.</p>
+            <ul class="list-group">
+                <li class="list-group-item"><input type="checkbox" id="optimize_onlysquares"></input> <label for="optimize_onlysquares">Big pixels only</label>
+                    <p>Don't use the marching squares algorithm to paint smoothed edges, just paint very big pixels.</p>
+                </li>
+                <li class="list-group-item"><input type="checkbox" id="optimize_rle_squares"></input> <label for="optimize_rle_squares">Paint adjactent cells in one batch</label>
+                    <p>
+                        Horizontally adjactent cells with square geometry are grouped into a rectangle, thus reducing the number of calls to the canvas.
+                    </p>
+                </li>
+                <li class="list-group-item"><input type="checkbox" id="optimize_removedoubles"></input> <label for="optimize_removedoubles">Filter obscured cells</label>
+                    <p>
+                        Check this to filter out cells that will be obscured by subsequent paint operations.
+                    </p>
+                </li>
+                <li class="list-group-item"><input type="checkbox" id="optimize_batchfill"></input> <label for="optimize_batchfill">Use batch fill</label>
+                    <p>The <code>context.fill()</code> method comes with a lot of overhead. Check this to do one <code>fill()</code> call per color used.</p>
+                </li>
+            </ul>
+          </div>
+          <div class="col-md-4">
+            <h2>Debug options</h2>
+            <p>For the curious ones.</p>
+            <li class="list-group-item"><input type="checkbox" id="debug_drawmesh"></input> <label for="debug_drawmesh">Show cell grid</label>
+                <p>Overlay the simulation with a grid showing the distinct cells.</p>
+            </li>
+          </div>
+        </div>
+
+        <hr>
+
+        <footer>
+          <p>&copy; Christer Bystr&ouml;m 2013</p>
+        </footer>
+      </div
+    </div>
+
+
+</div>
+</div>
+
+ <div class="container">
+
+
+        <h1>About the simulation</h1>
+        <p class="lead">The implementation and what I learned</p>
+
+        <p>The simulation is written in javascript and visualized using HTML5 canvas using the <a href="http://en.wikipedia.org/wiki/Marching_squares">Marching Squares</a> algorithm.</p>
+<h2>Simulation</h2>
+
+<p>The simulation at a glance:</p>
+<ul>
+    <li>The representation is a grid of cells with different intensity (heat)</li>
+    <li>Each cell gets its intensity updated using its current value,
+        the neighbours on the side and below it, and a random value.
+    </li>
+    <li>The bottom row of the grid is initialized with random numbers every cycle (or actually, an off-screen row)</li>
+    <li>The intensity of each cell is mapped onto one of five different colors</li>
+</ul>
+
+<p>The action happens in <tt><a href="https://github.com/zufallsgenerator/firesimulation/js/objects/firems.js">js/objects/firems.js</a></tt> and the method <code>tick()</code></p>
+
+<p>The algorithm should be pretty common, but I failed to Google a name for it. I based it on what I remember
+from when a co-worker explained his implementation of a fire in 80x50 char mode ages ago.</p>
+
+<h2>Visualization</h2>
+<p>I originally wrote this simulation representing it only as pixels. The other day a post on programming reddit about an <a href="http://www.ioccc.org/2012/endoh1/hint.html">ASCII fluids simulation</a>
+inspired me and I learned about the <a href="http://en.wikipedia.org/wiki/Marching_squares">Marching Squares</a> algorithm.</p>
+<p>Briefly put, the algorithm generates contours from grids containing numerical values, where values over a threshold value will represent a contour.
+The algorithm only generates a contour, so I used it several times with different thresholds to create the fire representation.</p>
+<p>I apply the algorithm five times, using different thresholds, to create different contours that I overlay.</p>
+
+
+<h2>What I learned about HTML5 canvas</h2>
+<p>These are my findings when developing for Google Chrome, but are likely to hold true for other browsers as well.</p>
+<p>Draw operations often incur a big overhead, but not all operations are equal:</p>
+</p>
+<ul>
+    <li>The number of calls to canvas context matters more than the area painted</li>
+    <li><code>context.fill()</code> has a lot of overhead - do your <code>drawRect()</code>, <code>lineTo()</code> etc. operations in as big batches as possible.</li>
+</ul>
+
+<h2>What I learned about optimizing</h2>
+<p>This is something that's always repeated, but here it really hit me: <b>Do measurements!</b> </p>
+<p>I have made a framework for my canvas experiments, where I can manipulate a parameters in run-time. I made this originally to manipulate parameters for
+visualizations. It is, however also a very good way to get immediate feedback if an optimization is doing any good or not,
+by putting on off switches for optimizations in. If the frame rate rises, it was probably a good idea.</p>
+
+<h2>Source code</h2>
+<p>You can fork the code on github: <a href="https://github.com/zufallsgenerator/firesimulation">https://github.com/zufallsgenerator/firesimulation</a></p>
+</div>
+</div>
+<script type="text/javascript" src="js/lib/jquery.min.js"></script>
+<script type="text/javascript" src="js/lib/json2.js"></script>
+<script type="text/javascript" src="js/lib/jstorage.min.js"></script>
+<script src="js/lib/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/class.js"></script>
+<script type="text/javascript" src="js/_c.js"></script>
+<script type="text/javascript" src="js/helpers.js"></script>
+<script type="text/javascript" src="js/marchingsquares.js"></script>
+<script type="text/javascript" src="js/objects/sky.js"></script>
+<script type="text/javascript" src="js/objects/firems.js"></script>
+<script type="text/javascript" src="js/domutil.js"></script>
+<script type="text/javascript" src="js/scene.js"></script>
+<script type="text/javascript" src="js/frameloop.js"></script>
+<script type="text/javascript" src="js/firesimulation.js"></script>
+<script type="text/javascript">
+main("mycanvas");
+</script>
+</body>
+</html>
