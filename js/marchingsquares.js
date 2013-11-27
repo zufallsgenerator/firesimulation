@@ -5,7 +5,7 @@
   /**
    * http://en.wikipedia.org/wiki/Marching_squares
    **/
-  
+
 var CONTOURS = [
     [], // 0
     [{x: 0, y: 0.5, yi: -1}, {x: 0.5, y:1, xi: 1}, {x: 0, y: 1}], // 1
@@ -40,15 +40,15 @@ function resolveSaddlePoint(point, originalValues, threshold) {
         }
         return 10;
     }
-    
+
     if (point === 10) {
         if (avg >= threshold) {
             return 10;
         }
         return 5;
     }
-    
-    throw "This point is not a saddle point: " + point;
+
+    return point;
 }
 
 function resolveSaddlePointWithAvg(point, avg, threshold) {
@@ -67,13 +67,13 @@ function getInterpolatedPoint(point, originalValues, threshold) {
     var o = originalValues, avg = (o[0] + o[1] + o[2] + o[3]) / 4,
         cont = CONTOURS[point], ret = [],
         c, i, x, y, f;
-        
+
     function makeF(avg) {
         return Math.min(1, avg / threshold) - 0.5;
      }
-     
+
     f = makeF(avg);
-        
+
     function ip(val, intf, f) { // interpolate
         if (intf) {
             if (intf > 0) {
@@ -118,23 +118,23 @@ function getInterpolatedPoint(point, originalValues, threshold) {
     if (point === 15) {
         ret[0].fullsquare = true;
     }
-    
+
     return ret;
 }
-  
-  
+
+
 CB.Class("Marchingsquares", {}).addStatic({
-    
+
     /**
      * Do everything in a batch, to resolve the problem with saddle points
      */
     calculateAll: function(grid, threshold) {
       var x, y, line1, line2, retGrid = [], retLine, point;
-      
+
       var th = function(val) {
         return val >= threshold ? 1: 0;
       };
-      
+
       for (y=0;y<grid.length-1;y++) {
         line1 = grid[y];
         line2 = grid[y+1];
@@ -151,17 +151,17 @@ CB.Class("Marchingsquares", {}).addStatic({
       }
       return retGrid;
     },
-    
+
     /**
      * Resolve everything in a batch, an do interpolation as well
      */
     calculateAllWithInterpolation: function(grid, threshold) {
       var x, y, line1, line2, retGrid = [], retLine, point, avg;
-      
+
       var th = function(val) {
         return val >= threshold ? 1: 0;
       };
-      
+
       for (y=0;y<grid.length-1;y++) {
         line1 = grid[y];
         line2 = grid[y+1];
@@ -171,7 +171,7 @@ CB.Class("Marchingsquares", {}).addStatic({
                 (th(line1[x+1]) << 2) |
                 (th(line2[x+1]) << 1) |
                 (th(line2[x]));
-            avg = (line1[x] + line1[x+1] + line2[x+1] + line2[x]) / 4; 
+            avg = (line1[x] + line1[x+1] + line2[x+1] + line2[x]) / 4;
             point = resolveSaddlePointWithAvg(point, avg, threshold);
             retLine.push(getInterpolatedPoint(point, [line1[x], line1[x+1], line2[x+1], line2[x]], threshold));
         }
@@ -180,7 +180,6 @@ CB.Class("Marchingsquares", {}).addStatic({
       return retGrid;
     }
 
-    
+
 });
 })();
-
