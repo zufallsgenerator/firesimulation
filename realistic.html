@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>HTML5 Canvas Fire Simulation - noise fire</title>
+<link rel="stylesheet" href="js/lib/bootstrap/css/bootstrap.min.css" media="screen">
+<meta name="author" content="Christer Bystrom">
+
+</head>
+<body>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+<div style="background: black; width: 100%;">
+
+
+    <div class="container">
+        <div style="float: left; position: fixed;">
+        <canvas id="mycanvas" width="256px" height="256px"></canvas>
+        <div class="well well-sm" style="width: 256px;">FPS: <b id="fps">...</b></div>
+        </div>
+        <div class="container well" style="margin-left: 270px">
+        <h1>A noise fire simulation using HTML5 canvas and javascript</h1>
+        <p>If you're using a fairly new browser, you should see a somewhat realistic fire simulation to the left.</p>
+        <p>This is a fire simulation based on the same code I wrote for a <a href="index.html">cartoonish fire simulation</a>. I got inspired by <a href="https://unifac.googlecode.com/hg/UFX/test/noise.html">those simulations</a> (select one of the fire simulations) that a commenter on reddit posted.</p>
+
+    <h2>Source code</h2>
+        <p>You can fork the code on github: <a href="https://github.com/zufallsgenerator/firesimulation">https://github.com/zufallsgenerator/firesimulation</a></p>
+
+        <div class="row">
+
+          <div class="col-md-4">
+            <h2>Simulation options</h2>
+            <p>Options for tweaking the fire simulation.</p>
+            <ul class="list-group">
+                <li class="list-group-item"><input type="checkbox" id="debug_runsimulation"></input> <label for="runsimulation">Run simulation</label>
+                    <p>Run the actual fire simulation.</p>
+                </li>
+                <li class="list-group-item"><input type="checkbox" id="debug_dodraw"></input> <label for="dopaint">Do draw</label>
+                    <p>Run paint updates</p>
+                </li>
+                <li class="list-group-item"><input type="number" id="ascent"></input> <label for="ascent">Raise factor</label>
+                    <p>How much the fire is raising upwards. (May cause artefacts if over 100)</p>
+                </li>
+                <li class="list-group-item"><input type="number" id="cellpersistency"></input> <label for="cellpersistency">Cell persistency</label>
+                    <p>A weight of the cells own value when calculating the new one under influence of adjactent cells.</p>
+                </li>
+                <li class="list-group-item"><input type="number" id="maxfuel"></input> <label for="maxfuel">Max fuel</label>
+                    <p>Fuel power, upper bound.</p>
+                </li>
+                <li class="list-group-item"><input type="number" id="minfuel"></input> <label for="minfuel">Min fuel</label>
+                    <p>Fuel power, lower bound.</p>
+                </li>
+
+            </ul>
+         </div>
+         <div class="col-md-4">
+            <h2>&nbsp;</h2>
+            <ul class="list-group">
+                <li class="list-group-item"><input type="number" id="xvariation"></input> <label for="xinfluence">Horiziontal influence</label>
+                    <p>Influence of cells to the side of the cell</p>
+                </li>
+                <li class="list-group-item"><input type="number" id="xvariation"></input> <label for="xvariation">Horiziontal influence variance</label>
+                    <p>The variance of influence for horizontal cells</p>
+                </li>
+                <li class="list-group-item"><input type="number" id="yinfluence"></input> <label for="xinfluence">Vertical influence</label>
+                    <p>Influence of cells to above and below the cell</p>
+                </li>
+                <li class="list-group-item"><input type="number" id="yvariation"></input> <label for="yvariation">Vertical influence variance</label>
+                    <p>The variance of influence for vertical cells</p>
+                </li>
+
+            </ul>
+          </div>
+          <div class="col-md-4">
+            <h2>&nbsp;</h2>
+            <ul class="list-group">
+                <li class="list-group-item"><input type="number" id="normalizer"></input> <label for="normalizer">Normalizer value</label>
+                    <p>Normalizer value to compensate for changes in other variables. Example: when raising horizontal influence, decrease this value to compensate.</p>
+                </li>
+
+                <li class="list-group-item"><input type="number" id="colorfactor"></input> <label for="colorfactor">Intensity offest</label>
+                    <p>An offset used for calculating color of a cell. The higher the value, the more white areas.</p>
+                </li>
+            </ul>
+          </div>
+        </div>
+
+        <hr>
+
+        <footer>
+          <p>&copy; Christer Bystr&ouml;m 2013</p>
+        </footer>
+      </div
+    </div>
+
+
+</div>
+</div>
+
+
+</div>
+<script type="text/javascript" src="js/lib/jquery.min.js"></script>
+<script type="text/javascript" src="js/lib/json2.js"></script>
+<script type="text/javascript" src="js/lib/jstorage.min.js"></script>
+<script src="js/lib/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/class.js"></script>
+<script type="text/javascript" src="js/underscorec.js"></script>
+<script type="text/javascript" src="js/helpers.js"></script>
+<script type="text/javascript" src="js/objects/sky.js"></script>
+<script type="text/javascript" src="js/objects/fire.js"></script>
+<script type="text/javascript" src="js/domutil.js"></script>
+<script type="text/javascript" src="js/scene.js"></script>
+<script type="text/javascript" src="js/frameloop.js"></script>
+<script type="text/javascript" src="js/firesimulation.js"></script>
+<script type="text/javascript">
+main("mycanvas");
+</script>
+</body>
+</html>

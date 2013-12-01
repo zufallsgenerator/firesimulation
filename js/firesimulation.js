@@ -22,10 +22,16 @@ window.main = (function() {
 
   function setInputValuesFromObject(obj) {
     $("input").each(function(idx, field) {
+      var type = $(field).prop("type");
       if (obj[field.id] !== undefined) {
-        if ($(field).prop("checked") !== undefined) {
-          $(field).prop("checked", Boolean(obj[field.id]));
-        } else {
+        if (type === "checkbox") {
+          if ($(field).prop("checked") !== undefined) {
+            $(field).prop("checked", Boolean(obj[field.id]));
+          } else {
+            $(field).prop("value", obj[field.id]);
+          }
+        }
+        if (type === "number") {
           $(field).prop("value", obj[field.id]);
         }
       }
@@ -35,8 +41,9 @@ window.main = (function() {
   function registerInputListeners(scene) {
     var fire, propId;
     $("input").on("change", function(evt) {
-      var newValue;
-      if (evt.target.checked !== undefined) {
+      var newValue, type = $(evt.target).prop("type");
+
+      if (type === "checkbox") {
         newValue = Boolean(evt.target.checked);
       } else {
         newValue = parseInt(evt.target.value, 10);
