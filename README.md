@@ -1,4 +1,4 @@
-HTML5 Canvas Fire Simulaton
+HTML5 Canvas Fire Simulation
 ===========================
 
 There are two types of simulations:
