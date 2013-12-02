@@ -19,6 +19,6 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-git');
 
   // Default task(s).
-  grunt.registerTask('default', ['publish']);
+  grunt.registerTask('default', ['gitcheckout:pages']);
 
 };
