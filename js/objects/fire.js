@@ -102,7 +102,14 @@
       },
 
       paint: function(ctx) {
-        let x, y, line, point, color, b=this.blocksize, g = this.grid, imageData;
+        let x;
+        let y;
+        let line;
+        let point;
+        let color;
+        let b=this.blocksize;
+        let g = this.grid;
+        let imageData;
         if (this.savedGrids.length >= this.saveLen) {
           this.idx = ((this.idx || 0) + 1) % this.savedGrids.length;
           g = this.savedGrids[this.idx];
@@ -132,7 +139,10 @@
       },
 
       oldGetColorArray: function(intensity) {
-        let str = this.getColor(intensity), r, g, b;
+        let str = this.getColor(intensity);
+        let r;
+        let g;
+        let b;
         if (!str) {
           return null;
         }
@@ -209,14 +219,22 @@
      },
 
       tick: function(ctx, diff) {
-        var x, y, target, lower, middle, upper, normalizer = this.normalizer / 200,
-          minfuel = this.minfuel / 100, maxfuel = this.maxfuel / 100, TICK_MS = 20,
-          xvariation = this.xvariation / 100,
-          yvariation = this.yvariation / 100,
-          cellpersistency = this.cellpersistency / 100,
-          ascent = this.ascent / 100,
-          xinfluence = this.xinfluence / 100,
-          yinfluence = this.yinfluence / 100;
+        var x;
+        var y;
+        var target;
+        var lower;
+        var middle;
+        var upper;
+        var normalizer = this.normalizer / 200;
+        var minfuel = this.minfuel / 100;
+        var maxfuel = this.maxfuel / 100;
+        var TICK_MS = 20;
+        var xvariation = this.xvariation / 100;
+        var yvariation = this.yvariation / 100;
+        var cellpersistency = this.cellpersistency / 100;
+        var ascent = this.ascent / 100;
+        var xinfluence = this.xinfluence / 100;
+        var yinfluence = this.yinfluence / 100;
 
         if (this.savedGrids.length >= this.saveLen) {
           return;
@@ -234,7 +252,16 @@
         this.ms = (this.ms || 0) + diff;
 
         function processLine(target, lower, middle, upper) {
-          var length = target.length, sum, ybias, centerbias, leftbias, middlebias, rightbias, xbias, topbias, bottombias;
+          var length = target.length;
+          var sum;
+          var ybias;
+          var centerbias;
+          var leftbias;
+          var middlebias;
+          var rightbias;
+          var xbias;
+          var topbias;
+          var bottombias;
           for(x=0;x<length;x++) {
             sum = 0;
 
@@ -263,11 +290,11 @@
 
 
         while (this.ms > TICK_MS) {
-          var newLine = [],
-            newVal,
-            length = this.grid[0].length,
-            margin = Math.round(this.grid[0].length * 0.1),
-            fuel = maxfuel - minfuel;
+          var newLine = [];
+          var newVal;
+          var length = this.grid[0].length;
+          var margin = Math.round(this.grid[0].length * 0.1);
+          var fuel = maxfuel - minfuel;
           for(x=0;x<length;x++) {
             if (Math.random() > 0.9 || x === 0) {
               newVal = minfuel + (Math.random() * fuel);
@@ -290,14 +317,15 @@
         const tmp = this.grid;
         this.gird = this.flipGrid;
         this.flipGrid = tmp;
-
       },
 
       createGrid: function(height) {
-        let grid = [], i;
+        let grid = [];
+        let i;
 
         function makeLine(length) {
-          let line = [], j;
+          let line = [];
+          let j;
           for(j=0;j<length;j++) {
             line.push(0);
           }

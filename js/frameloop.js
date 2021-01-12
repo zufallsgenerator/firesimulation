@@ -10,7 +10,11 @@ const WAITMS_PAUSE = 200;
  * @param {Object} mainobj - object on which to call .tick(ctx, diff)
  */
 CB.frameloop = function(ctx, mainobj, ctrl, fpsfunc) {
-  let animate, lastTs = new Date(), s = 0, pause, frames = 0;
+  let animate;
+  let lastTs = new Date();
+  let s = 0;
+  let pause;
+  let frames = 0;
 
   if (ctrl) {
     ctrl.handleProperties(mainobj);
@@ -25,7 +29,10 @@ CB.frameloop = function(ctx, mainobj, ctrl, fpsfunc) {
   }
 
   animate = function() {
-    let curTs = new Date() - 0, diff = curTs - lastTs, report = "", logStr;
+    let curTs = new Date() - 0;
+    let diff = curTs - lastTs;
+    let report = "";
+    let logStr;
     setTimeout(animate, pause ? WAITMS_PAUSE : WAITMS_RUN);
     lastTs = curTs;
     s = s + diff;

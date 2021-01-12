@@ -33,7 +33,8 @@ function isSaddlePoint(point) {
  * Flip point
  */
 function resolveSaddlePoint(point, originalValues, threshold) {
-    const o = originalValues, avg = (o[0] + o[1] + o[2] + o[3]) / 4;
+    const o = originalValues;
+    const avg = (o[0] + o[1] + o[2] + o[3]) / 4;
     if (point === 5) {
         if (avg >= threshold) {
             return 5;
@@ -64,9 +65,15 @@ function resolveSaddlePointWithAvg(point, avg, threshold) {
 }
 
 function getInterpolatedPoint(point, originalValues, threshold) {
-    let o = originalValues, avg = (o[0] + o[1] + o[2] + o[3]) / 4,
-        cont = CONTOURS[point], ret = [],
-        c, i, x, y, f;
+    let o = originalValues;
+    let avg = (o[0] + o[1] + o[2] + o[3]) / 4;
+    let cont = CONTOURS[point];
+    let ret = [];
+    let c;
+    let i;
+    let x;
+    let y;
+    let f;
 
     function makeF(avg) {
         return Math.min(1, avg / threshold) - 0.5;
@@ -129,55 +136,68 @@ CB.Class("Marchingsquares", {}).addStatic({
      * Do everything in a batch, to resolve the problem with saddle points
      */
     calculateAll: function(grid, threshold) {
-      let x, y, line1, line2, retGrid = [], retLine, point;
+        let x;
+        let y;
+        let line1;
+        let line2;
+        let retGrid = [];
+        let retLine;
+        let point;
 
-      const th = function(val) {
-        return val >= threshold ? 1: 0;
-      };
+        const th = function(val) {
+          return val >= threshold ? 1: 0;
+        };
 
-      for (y=0;y<grid.length-1;y++) {
-        line1 = grid[y];
-        line2 = grid[y+1];
-        retLine = [];
-        for (x=0;x<line1.length-1;x++) {
-            point = (th(line1[x]) << 3) |
-                (th(line1[x+1]) << 2) |
-                (th(line2[x+1]) << 1) |
-                (th(line2[x]));
-            point = resolveSaddlePoint(point, [line1[x], line1[x+1], line2[x+1], line2[x]], threshold);
-            retLine.push(point);
+        for (y=0;y<grid.length-1;y++) {
+          line1 = grid[y];
+          line2 = grid[y+1];
+          retLine = [];
+          for (x=0;x<line1.length-1;x++) {
+              point = (th(line1[x]) << 3) |
+                  (th(line1[x+1]) << 2) |
+                  (th(line2[x+1]) << 1) |
+                  (th(line2[x]));
+              point = resolveSaddlePoint(point, [line1[x], line1[x+1], line2[x+1], line2[x]], threshold);
+              retLine.push(point);
+          }
+          retGrid.push(retLine);
         }
-        retGrid.push(retLine);
-      }
-      return retGrid;
+        return retGrid;
     },
 
     /**
      * Resolve everything in a batch, an do interpolation as well
      */
     calculateAllWithInterpolation: function(grid, threshold) {
-      let x, y, line1, line2, retGrid = [], retLine, point, avg;
+        let x;
+        let y;
+        let line1;
+        let line2;
+        let retGrid = [];
+        let retLine;
+        let point;
+        let avg;
 
-      const th = function(val) {
-        return val >= threshold ? 1: 0;
-      };
+        const th = function(val) {
+          return val >= threshold ? 1: 0;
+        };
 
-      for (y=0;y<grid.length-1;y++) {
-        line1 = grid[y];
-        line2 = grid[y+1];
-        retLine = [];
-        for (x=0;x<line1.length-1;x++) {
-            point = (th(line1[x]) << 3) |
-                (th(line1[x+1]) << 2) |
-                (th(line2[x+1]) << 1) |
-                (th(line2[x]));
-            avg = (line1[x] + line1[x+1] + line2[x+1] + line2[x]) / 4;
-            point = resolveSaddlePointWithAvg(point, avg, threshold);
-            retLine.push(getInterpolatedPoint(point, [line1[x], line1[x+1], line2[x+1], line2[x]], threshold));
+        for (y=0;y<grid.length-1;y++) {
+          line1 = grid[y];
+          line2 = grid[y+1];
+          retLine = [];
+          for (x=0;x<line1.length-1;x++) {
+              point = (th(line1[x]) << 3) |
+                  (th(line1[x+1]) << 2) |
+                  (th(line2[x+1]) << 1) |
+                  (th(line2[x]));
+              avg = (line1[x] + line1[x+1] + line2[x+1] + line2[x]) / 4;
+              point = resolveSaddlePointWithAvg(point, avg, threshold);
+              retLine.push(getInterpolatedPoint(point, [line1[x], line1[x+1], line2[x+1], line2[x]], threshold));
+          }
+          retGrid.push(retLine);
         }
-        retGrid.push(retLine);
-      }
-      return retGrid;
+        return retGrid;
     }
 
 

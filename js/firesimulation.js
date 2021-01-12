@@ -14,7 +14,10 @@ window.main = (function() {
           y: 0
         }
         }
-      ], fpsEl, textProp;
+      ];
+
+  let fpsEl;
+  let textProp;
 
   function fpsreporter(fps) {
     $("#fps").text(String(fps));
@@ -39,9 +42,11 @@ window.main = (function() {
   }
 
   function registerInputListeners(scene) {
-    let fire, propId;
+    let fire;
+    let propId;
     $("input").on("change", function(evt) {
-      let newValue, type = $(evt.target).prop("type");
+      let newValue;
+      let type = $(evt.target).prop("type");
 
       if (type === "checkbox") {
         newValue = Boolean(evt.target.checked);
@@ -71,14 +76,15 @@ window.main = (function() {
         fire.boost();
       }
     });
-
   }
 
 
 
 
   function start(canvasId, controlId) {
-    let canvas, ctx, world;
+    let canvas;
+    let ctx;
+    let world;
 
     canvas = document.getElementById(canvasId);
     if (!canvas.getContext) {

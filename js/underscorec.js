@@ -17,7 +17,8 @@ _c = (function() {
     },
     
     filter: function(arr, fn) {
-      let ret = [], i;
+      let ret = [];
+      let i;
       for(i=0;i<arr.length;i++) {
         if (fn(arr[i])) {
           ret.push(arr[i]);
@@ -37,7 +38,9 @@ _c = (function() {
      *
      */
     fmt: function() {
-      let str = arguments[0], i, r;
+      let str = arguments[0];
+      let i;
+      let r;
       for (i = 1; i < arguments.length; i++) {
         r = new RegExp(`\\{${i - 1}\\}`, "g");
         if (r.test(str)) {
