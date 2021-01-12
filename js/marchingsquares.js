@@ -6,7 +6,7 @@
    * http://en.wikipedia.org/wiki/Marching_squares
    **/
 
-var CONTOURS = [
+const CONTOURS = [
     [], // 0
     [{x: 0, y: 0.5, yi: -1}, {x: 0.5, y:1, xi: 1}, {x: 0, y: 1}], // 1
     [{x: 0.5, xi: -1, y: 1}, {x: 1, y: 0.5, yi: -1 }, {x: 1, y: 1}], // 2
@@ -33,7 +33,7 @@ function isSaddlePoint(point) {
  * Flip point
  */
 function resolveSaddlePoint(point, originalValues, threshold) {
-    var o = originalValues, avg = (o[0] + o[1] + o[2] + o[3]) / 4;
+    const o = originalValues, avg = (o[0] + o[1] + o[2] + o[3]) / 4;
     if (point === 5) {
         if (avg >= threshold) {
             return 5;
@@ -64,7 +64,7 @@ function resolveSaddlePointWithAvg(point, avg, threshold) {
 }
 
 function getInterpolatedPoint(point, originalValues, threshold) {
-    var o = originalValues, avg = (o[0] + o[1] + o[2] + o[3]) / 4,
+    let o = originalValues, avg = (o[0] + o[1] + o[2] + o[3]) / 4,
         cont = CONTOURS[point], ret = [],
         c, i, x, y, f;
 
@@ -129,9 +129,9 @@ CB.Class("Marchingsquares", {}).addStatic({
      * Do everything in a batch, to resolve the problem with saddle points
      */
     calculateAll: function(grid, threshold) {
-      var x, y, line1, line2, retGrid = [], retLine, point;
+      let x, y, line1, line2, retGrid = [], retLine, point;
 
-      var th = function(val) {
+      const th = function(val) {
         return val >= threshold ? 1: 0;
       };
 
@@ -156,9 +156,9 @@ CB.Class("Marchingsquares", {}).addStatic({
      * Resolve everything in a batch, an do interpolation as well
      */
     calculateAllWithInterpolation: function(grid, threshold) {
-      var x, y, line1, line2, retGrid = [], retLine, point, avg;
+      let x, y, line1, line2, retGrid = [], retLine, point, avg;
 
-      var th = function(val) {
+      const th = function(val) {
         return val >= threshold ? 1: 0;
       };
 

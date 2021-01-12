@@ -2,7 +2,7 @@
 /*global CB */
 (function() {
   'use strict';
-  var ARC_CIRCLE = 2 * Math.PI;
+  const ARC_CIRCLE = 2 * Math.PI;
   CB.Class("Helpers", {}).addStatic({
     circle : function(ctx, x, y, radius) {
       ctx.arc(x, y, radius, 0, ARC_CIRCLE, false);
@@ -13,7 +13,7 @@
       ctx.lineTo(x+2, y);
    },
    purgeDeleted: function(objects) {
-     var i, filtered = [], deleted = false;
+     let i, filtered = [], deleted = false;
      for(i=0;i<objects.length;i++) {
        if (objects[i].deleted) {
          deleted = true;
@@ -31,7 +31,7 @@
       // a^2 + b^2 = c^2
       // If c1 is bigger than c2, then c1 square is also bigger than c2 square
       // c1^2 > c2^2 -> c1 > c2
-      var x, y;
+      let x, y;
       x = Math.abs(x1 - x2);
       y = Math.abs(y1 - y2);
 
@@ -48,9 +48,8 @@
      * @returns {Number} x
      */
     getXforPythDist: function(d, y) {
-      var factor = (d * d) - (y * y);
+      const factor = (d * d) - (y * y);
       return Math.sqrt(factor);
     }
   });
 })();
-

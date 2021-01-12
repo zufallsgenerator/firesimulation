@@ -2,7 +2,7 @@ _c = (function() {
   'use strict';
   return {
     forEachKeyValue: function(obj, fn) {
-      var key = null;
+      const key = null;
       for(key in obj) {
         if (obj.hasOwnProperty(key)) {
           fn(key, obj[key]);
@@ -10,14 +10,14 @@ _c = (function() {
       }
     },
     each: function(arr, fn) {
-      var i;
+      let i;
       for (i=0;i<arr.length;i++) {
         fn(arr[i], i);
       }
     },
     
     filter: function(arr, fn) {
-      var ret = [], i;
+      let ret = [], i;
       for(i=0;i<arr.length;i++) {
         if (fn(arr[i])) {
           ret.push(arr[i]);
@@ -37,7 +37,7 @@ _c = (function() {
      *
      */
     fmt: function() {
-      var str = arguments[0], i, r;
+      let str = arguments[0], i, r;
       for (i = 1; i < arguments.length; i++) {
         r = new RegExp("\\{" + (i - 1 ) + "\\}", "g");
         if (r.test(str)) {
@@ -51,5 +51,3 @@ _c = (function() {
     }
   };
 })();
-
-

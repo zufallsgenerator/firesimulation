@@ -80,7 +80,7 @@
       "l5":14,
 
       initialize: function() {
-        var tmpCanvas = document.createElement("canvas");
+        const tmpCanvas = document.createElement("canvas");
         tmpCanvas.height = this.height;
         tmpCanvas.width = this.width;
         this.tmpCtx = tmpCanvas.getContext("2d");
@@ -95,14 +95,14 @@
       },
 
       report: function() {
-          var ret = _c.fmt("Fire {}, {}", Math.round(this.maxIntensity * 100), Math.round(this.minIntensity * 100));
+          const ret = _c.fmt("Fire {}, {}", Math.round(this.maxIntensity * 100), Math.round(this.minIntensity * 100));
           this.maxIntensity = undefined;
           this.minIntensity = undefined;
           return ret;
       },
 
       paint: function(ctx) {
-        var x, y, line, point, color, b=this.blocksize, g = this.grid, imageData;
+        let x, y, line, point, color, b=this.blocksize, g = this.grid, imageData;
         if (this.savedGrids.length >= this.saveLen) {
           this.idx = ((this.idx || 0) + 1) % this.savedGrids.length;
           g = this.savedGrids[this.idx];
@@ -110,7 +110,7 @@
 
         if (this.debug_dodraw) {
           imageData = this.tmpCtx.createImageData(this.width, this.height);//ctx.getImageData(this.x, this.y, this.width, this.height);
-          var d = imageData.data;
+          const d = imageData.data;
           for (y=0;y<g.length; y++) {
             line = g[y];
             for(x=0;x<line.length;x++) {
@@ -132,7 +132,7 @@
       },
 
       oldGetColorArray: function(intensity) {
-        var str = this.getColor(intensity), r, g, b;
+        let str = this.getColor(intensity), r, g, b;
         if (!str) {
           return null;
         }
@@ -141,7 +141,7 @@
         g = parseInt(str.substr(3, 2), 16);
         b = parseInt(str.substr(5, 2), 16);
 
-        var avg = (r + g + b) / 3;
+        let avg = (r + g + b) / 3;
         if (avg > 50) {
           avg =  255;
         }  else {
@@ -152,7 +152,7 @@
       },
 
       getColorArray: function(intensity) {
-        var n = Math.min(Math.round(intensity * this.colorfactor), 255);
+        let n = Math.min(Math.round(intensity * this.colorfactor), 255);
         if (this.maxIntensity === undefined) {
           this.maxIntensity = intensity;
           this.minIntensity = intensity;
@@ -178,7 +178,7 @@
       },
 
      getColorOld: function(intensity) {
-       var n = intensity * 100;
+       const n = intensity * 100;
 
        if (this.maxIntensity === undefined) {
          this.maxIntensity = intensity;
@@ -287,17 +287,17 @@
           }
           this.ms = this.ms - TICK_MS;
         }
-        var tmp = this.grid;
+        const tmp = this.grid;
         this.gird = this.flipGrid;
         this.flipGrid = tmp;
 
       },
 
       createGrid: function(height) {
-        var grid = [], i;
+        let grid = [], i;
 
         function makeLine(length) {
-          var line = [], j;
+          let line = [], j;
           for(j=0;j<length;j++) {
             line.push(0);
           }

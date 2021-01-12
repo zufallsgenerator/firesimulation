@@ -1,5 +1,5 @@
 /* jshint strict: true */
-var CB = {};
+const CB = {};
 (function(scope) {
   'use strict';
   /**
@@ -15,9 +15,9 @@ var CB = {};
   *    The instantiated class
   */
   scope.Class = function(name, members) {
-    var klass, key;
+    let klass, key;
     scope[name] = function(params) {
-      var key, cls;
+      let key, cls;
       cls = scope[name];
       if (params) {
         for(key in params) {
@@ -63,7 +63,7 @@ var CB = {};
 
     // Method for adding class methods/variables
     klass.addStatic = function(members) {
-      for (var key in members) {
+      for (const key in members) {
         if (members.hasOwnProperty(key)) {
           klass[key] = members[key];
         }
@@ -78,10 +78,10 @@ var CB = {};
 
   function _assertParams(params, template) {
     // This probably requires a pretty new web browser
-    for (var name in template) {
+    for (const name in template) {
       if (template.hasOwnProperty(name)) {
-        var expectedType = template[name];
-        var expectedStr = "parameter '" + name + "' of type '" +
+        const expectedType = template[name];
+        const expectedStr = "parameter '" + name + "' of type '" +
         expectedType.name + "'";
         if (params[name] === undefined) {
           throw new Error("Missing: " + expectedStr);
@@ -96,7 +96,7 @@ var CB = {};
   }
 
   scope.namespace = function(namespace) {
-    var parts = namespace.split("."), part, i, currentNode = scope;
+    let parts = namespace.split("."), part, i, currentNode = scope;
     for(i=0;i<parts.length;i++) {
       part = parts[i];
       if (currentNode[part] === undefined) {
