@@ -28,7 +28,7 @@ const CB = {};
       }
 
       cls.__instanceCount__++;
-      this._id = "" + name + "_" + cls.__instanceCount__;
+      this._id = `${name}_${cls.__instanceCount__}`;
       if (this.initialize) {
         this.initialize(...arguments);
       }
@@ -50,7 +50,7 @@ const CB = {};
     };
 
     klass.prototype.toString = function() {
-      return String("<CB." + this._id + " instance>");
+      return String(`<CB.${this._id} instance>`);
     };
 
 
@@ -81,14 +81,14 @@ const CB = {};
     for (const name in template) {
       if (template.hasOwnProperty(name)) {
         const expectedType = template[name];
-        const expectedStr = "parameter '" + name + "' of type '" +
+        const expectedStr = `parameter '${name}' of type '` +
         expectedType.name + "'";
         if (params[name] === undefined) {
-          throw new Error("Missing: " + expectedStr);
+          throw new Error(`Missing: ${expectedStr}`);
         }
 
         if (params[name].constructor !== expectedType) {
-        throw new Error("Wrong type: " + (typeof params[name]) +
+        throw new Error(`Wrong type: ${typeof params[name]}` +
           ". Expected " + expectedStr);
         }
       }

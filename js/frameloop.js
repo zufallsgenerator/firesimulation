@@ -34,7 +34,7 @@ CB.frameloop = function(ctx, mainobj, ctrl, fpsfunc) {
       if (mainobj.report) {
         report = mainobj.report();
       }
-      logStr = "FPS: " + frames + (report ? ", " + report : "");
+      logStr = `FPS: ${frames}${report ? `, ${report}` : ""}`;
       if (ctrl) {
         ctrl.showLog(logStr);
       }

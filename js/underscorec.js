@@ -39,7 +39,7 @@ _c = (function() {
     fmt: function() {
       let str = arguments[0], i, r;
       for (i = 1; i < arguments.length; i++) {
-        r = new RegExp("\\{" + (i - 1 ) + "\\}", "g");
+        r = new RegExp(`\\{${i - 1}\\}`, "g");
         if (r.test(str)) {
           r.lastIndex = 0; // Reset regexp
           str = str.replace(r, String(arguments[i]));

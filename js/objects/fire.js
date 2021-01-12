@@ -4,7 +4,7 @@
   'use strict';
   function p(n) {
     return {
-      key: "l" + n,
+      key: `l${n}`,
       max: 100,
       min: 0
     };
