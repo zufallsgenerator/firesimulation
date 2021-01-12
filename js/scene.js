@@ -10,7 +10,7 @@
     light: 100,
 
     initialize: function(params, ctx) {
-      var cfg, obj, i, classname;
+      let cfg, obj, i, classname;
       this._balls = [];
 
       this.children = [];
@@ -30,7 +30,7 @@
     },
 
     tick: function(ctx, diff) {
-      var i, obj;
+      let i, obj;
       this.children = CB.Helpers.purgeDeleted(this.children);
       for(i=0;i<this.children.length;i++) {
         obj = this.children[i];

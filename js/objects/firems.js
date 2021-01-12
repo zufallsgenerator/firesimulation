@@ -125,14 +125,14 @@
     },
 
     report: function() {
-      var ret = _c.fmt("Fire {}, {}", Math.round(this.maxIntensity * 100), Math.round(this.minIntensity * 100));
+      const ret = _c.fmt("Fire {}, {}", Math.round(this.maxIntensity * 100), Math.round(this.minIntensity * 100));
       this.maxIntensity = undefined;
       this.minIntensity = undefined;
       return ret;
     },
 
     paint: function(ctx) {
-      var i, c, g,line, point, startx, width, l, x, y, grids = [];
+      let i, c, g, line, point, startx, width, l, x, y, grids = [];
 
       if (!this.dopaint) {
         return;
@@ -203,7 +203,7 @@
     },
 
     erasePaintDoubles: function(grids) {
-      var x, y, ymax = grids[0].length, xmax = grids[0][0].length, painted, cont, i;
+      let x, y, ymax = grids[0].length, xmax = grids[0][0].length, painted, cont, i;
 
       for (y=0;y<ymax; y++) {
         for(x=0;x<xmax;x++) {
@@ -223,7 +223,7 @@
     },
 
     drawMesh: function(ctx, width, height) {
-      var b = this.blocksize, y, x;
+      let b = this.blocksize, y, x;
 
       ctx.lineWidth = 0.5;
       ctx.strokeStyle = "#888";
@@ -245,7 +245,7 @@
     },
 
     drawRect: function(ctx, x, y, width, height = 1, dontFill) {
-      var xoffset, yoffset, b=this.blocksize;
+      let xoffset, yoffset, b=this.blocksize;
       xoffset = b * x;
       yoffset = b * y;
       if (!dontFill) {
@@ -258,7 +258,7 @@
     },
 
     drawContour: function(ctx, cont, x, y, dontFill) {
-      var xoffset, yoffset, xx, yy, b=this.blocksize, j;
+      let xoffset, yoffset, xx, yy, b=this.blocksize, j;
 
       if (!dontFill) {
         ctx.beginPath();
@@ -329,7 +329,7 @@
           processLine(lower, upper);
         }
         lastLine = this.grid[this.grid.length-1];
-        var newLine = [];
+        const newLine = [];
         for(x=0;x<lastLine.length;x++) {
           newLine.push(0.5 + (Math.random() * fuel));
         }
@@ -346,10 +346,10 @@
     },
 
     createGrid: function(height) {
-      var grid = [], i;
+      let grid = [], i;
 
       function makeLine(length) {
-        var line = [], j;
+        let line = [], j;
         for(j=0;j<length;j++) {
           line.push(0);
         }

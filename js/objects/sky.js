@@ -6,14 +6,13 @@
     return "rgba(0, 0, 0, 0.4)";
   }
   function createFill(ctx, light) {
-    var l = (light * 1.5) - 50,  height = ctx.canvas.clientHeight, grd, start, end;
+    let l = (light * 1.5) - 50, height = ctx.canvas.clientHeight, grd, start, end;
     if (light === 0) {
       return createNight(ctx);
     }
     grd = ctx.createLinearGradient(0,0, 0, height);
-    
-    function rgb(r, g, b) {
-      var f = 2.55;
+        function rgb(r, g, b) {
+      const f = 2.55;
       function c(x) {
         if (x < 0) {
           return 0;
@@ -33,7 +32,7 @@
       start = rgb(50, 50, 100);
       end = rgb(l, l, 100);
     } else if (l > 50) {
-      var f = 86 - ((l) / 2);
+      const f = 86 - ((l) / 2);
       start = rgb(f , f, 100);
       end = rgb(115 - (l/2), l, l + 25);
       // Sunset

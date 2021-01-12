@@ -2,19 +2,19 @@
 /*global $ window document CB _c alert loadobjects */
 window.main = (function() {
   'use strict';
-  var defaultConfig = [ {
-    "classname" : "Sky",
-    "values" : {
-      "light" : 0
-    }
-  }, {
-    "classname":"Firems",
-    values: {
-      x: 0,
-      y: 0
-    }
-    }
-  ], fpsEl, textProp;
+  let defaultConfig = [ {
+        "classname" : "Sky",
+        "values" : {
+          "light" : 0
+        }
+      }, {
+        "classname":"Firems",
+        values: {
+          x: 0,
+          y: 0
+        }
+        }
+      ], fpsEl, textProp;
 
   function fpsreporter(fps) {
     $("#fps").text(String(fps));
@@ -22,7 +22,7 @@ window.main = (function() {
 
   function setInputValuesFromObject(obj) {
     $("input").each(function(idx, field) {
-      var type = $(field).prop("type");
+      const type = $(field).prop("type");
       if (obj[field.id] !== undefined) {
         if (type === "checkbox") {
           if ($(field).prop("checked") !== undefined) {
@@ -39,9 +39,9 @@ window.main = (function() {
   }
 
   function registerInputListeners(scene) {
-    var fire, propId;
+    let fire, propId;
     $("input").on("change", function(evt) {
-      var newValue, type = $(evt.target).prop("type");
+      let newValue, type = $(evt.target).prop("type");
 
       if (type === "checkbox") {
         newValue = Boolean(evt.target.checked);
@@ -78,7 +78,7 @@ window.main = (function() {
 
 
   function start(canvasId, controlId) {
-    var canvas, ctx, world;
+    let canvas, ctx, world;
 
     canvas = document.getElementById(canvasId);
     if (!canvas.getContext) {
