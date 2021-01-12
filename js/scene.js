@@ -10,7 +10,10 @@
     light: 100,
 
     initialize: function(params, ctx) {
-      let cfg, obj, i, classname;
+      let cfg;
+      let obj;
+      let i;
+      let classname;
       this._balls = [];
 
       this.children = [];
@@ -30,7 +33,8 @@
     },
 
     tick: function(ctx, diff) {
-      let i, obj;
+      let i;
+      let obj;
       this.children = CB.Helpers.purgeDeleted(this.children);
       for(i=0;i<this.children.length;i++) {
         obj = this.children[i];
@@ -41,9 +45,14 @@
     },
 
     draw: function(ctx) {
-      var i, sorted, obj, sky = _c.filter(this.children, function(o) {
+      var i;
+      var sorted;
+      var obj;
+
+      var sky = _c.filter(this.children, function(o) {
          return o && o.roles && o.roles.sky;
       })[0];
+
       if (sky) {
         this.fillContext(ctx, sky.getFill(ctx));
       }
@@ -69,12 +78,14 @@
     },
 
     clearContext: function(ctx) {
-      var width = ctx.canvas.width, height = ctx.canvas.height;
+      var width = ctx.canvas.width;
+      var height = ctx.canvas.height;
       ctx.clearRect(0, 0, width, height);
     },
 
     fillContext: function(ctx, fill) {
-      var width = ctx.canvas.width, height = ctx.canvas.height;
+      var width = ctx.canvas.width;
+      var height = ctx.canvas.height;
       ctx.beginPath();
       ctx.rect(0, 0, width, height);
       ctx.fillStyle = fill;

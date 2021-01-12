@@ -132,7 +132,17 @@
     },
 
     paint: function(ctx) {
-      let i, c, g, line, point, startx, width, l, x, y, grids = [];
+      let i;
+      let c;
+      let g;
+      let line;
+      let point;
+      let startx;
+      let width;
+      let l;
+      let x;
+      let y;
+      let grids = [];
 
       if (!this.dopaint) {
         return;
@@ -198,12 +208,16 @@
         this.drawMesh(ctx, grids[0][0].length, grids[0].length);
       }
       ctx.translate(-this.x, -this.y);
-
-
     },
 
     erasePaintDoubles: function(grids) {
-      let x, y, ymax = grids[0].length, xmax = grids[0][0].length, painted, cont, i;
+      let x;
+      let y;
+      let ymax = grids[0].length;
+      let xmax = grids[0][0].length;
+      let painted;
+      let cont;
+      let i;
 
       for (y=0;y<ymax; y++) {
         for(x=0;x<xmax;x++) {
@@ -223,11 +237,13 @@
     },
 
     drawMesh: function(ctx, width, height) {
-      let b = this.blocksize, y, x;
+      let b = this.blocksize;
+      let y;
+      let x;
 
       ctx.lineWidth = 0.5;
       ctx.strokeStyle = "#888";
-        ctx.beginPath();
+      ctx.beginPath();
 
 
       for (y=0;y<=height;y++) {
@@ -241,11 +257,12 @@
         ctx.lineTo(x * b, b * height);
       }
       ctx.stroke();
-
     },
 
     drawRect: function(ctx, x, y, width, height = 1, dontFill) {
-      let xoffset, yoffset, b=this.blocksize;
+      let xoffset;
+      let yoffset;
+      let b=this.blocksize;
       xoffset = b * x;
       yoffset = b * y;
       if (!dontFill) {
@@ -258,7 +275,12 @@
     },
 
     drawContour: function(ctx, cont, x, y, dontFill) {
-      let xoffset, yoffset, xx, yy, b=this.blocksize, j;
+      let xoffset;
+      let yoffset;
+      let xx;
+      let yy;
+      let b=this.blocksize;
+      let j;
 
       if (!dontFill) {
         ctx.beginPath();
@@ -294,9 +316,14 @@
      * initialized offline/offscreen line.
      */
     tick: function(ctx, diff) {
-      var x, y, lower, upper, lastLine,
-        burnfactor = (this.burnfactor + (this.useintensitymodulation ? this.burnoffset : 0) + this._boost) / 100,
-        fuel = this.fuel / 100, TICK_MS = 20;
+      var x;
+      var y;
+      var lower;
+      var upper;
+      var lastLine;
+      var burnfactor = (this.burnfactor + (this.useintensitymodulation ? this.burnoffset : 0) + this._boost) / 100;
+      var fuel = this.fuel / 100;
+      var TICK_MS = 20;
 
       if (!this.runsimulation) {
         if (this.grid.length < this.height) {
@@ -308,7 +335,9 @@
       this.ms = (this.ms || 0) + diff;
 
       function processLine(lower, upper) {
-        var n, length = lower.length, sum;
+        var n;
+        var length = lower.length;
+        var sum;
         for(x=0;x<length;x++) {
           sum = 0;
           n=x-1;
@@ -346,10 +375,12 @@
     },
 
     createGrid: function(height) {
-      let grid = [], i;
+      let grid = [];
+      let i;
 
       function makeLine(length) {
-        let line = [], j;
+        let line = [];
+        let j;
         for(j=0;j<length;j++) {
           line.push(0);
         }

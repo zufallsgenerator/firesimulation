@@ -13,7 +13,9 @@
       ctx.lineTo(x+2, y);
    },
    purgeDeleted: function(objects) {
-     let i, filtered = [], deleted = false;
+     let i;
+     let filtered = [];
+     let deleted = false;
      for(i=0;i<objects.length;i++) {
        if (objects[i].deleted) {
          deleted = true;
@@ -27,16 +29,18 @@
      return objects;
    },
    getPythDist: function(x1, y1, x2, y2) {
-      // Pythagora's comparison
-      // a^2 + b^2 = c^2
-      // If c1 is bigger than c2, then c1 square is also bigger than c2 square
-      // c1^2 > c2^2 -> c1 > c2
-      let x, y;
-      x = Math.abs(x1 - x2);
-      y = Math.abs(y1 - y2);
+     // Pythagora's comparison
+     // a^2 + b^2 = c^2
+     // If c1 is bigger than c2, then c1 square is also bigger than c2 square
+     // c1^2 > c2^2 -> c1 > c2
+     let x;
 
-      return Math.sqrt((x * x) + (y * y));
-    },
+     let y;
+     x = Math.abs(x1 - x2);
+     y = Math.abs(y1 - y2);
+
+     return Math.sqrt((x * x) + (y * y));
+   },
     
     /**
      * Get for the pythagorean distance

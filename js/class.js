@@ -15,9 +15,11 @@ const CB = {};
   *    The instantiated class
   */
   scope.Class = function(name, members) {
-    let klass, key;
+    let klass;
+    let key;
     scope[name] = function(params) {
-      let key, cls;
+      let key;
+      let cls;
       cls = scope[name];
       if (params) {
         for(key in params) {
@@ -96,7 +98,10 @@ const CB = {};
   }
 
   scope.namespace = function(namespace) {
-    let parts = namespace.split("."), part, i, currentNode = scope;
+    let parts = namespace.split(".");
+    let part;
+    let i;
+    let currentNode = scope;
     for(i=0;i<parts.length;i++) {
       part = parts[i];
       if (currentNode[part] === undefined) {
