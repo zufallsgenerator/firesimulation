@@ -30,7 +30,7 @@ var CB = {};
       cls.__instanceCount__++;
       this._id = "" + name + "_" + cls.__instanceCount__;
       if (this.initialize) {
-        this.initialize.apply(this,  arguments);
+        this.initialize(...arguments);
       }
     };
     klass = scope[name];
