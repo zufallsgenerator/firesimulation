@@ -4,7 +4,7 @@
   'use strict';
   function p(n) {
     return {
-      key: "l" + n,
+      key: `l${n}`,
       max: 100,
       min: 0
     };
@@ -12,7 +12,7 @@
 
   function c(n) {
     return {
-      key: "c" + n,
+      key: `c${n}`,
       type: "color"
     };
   }
@@ -142,7 +142,7 @@
 
 
       for (i=1;i<=5;i++) {
-          l = this["l" + i];
+          l = this[`l${i}`];
           grids.push(CB.Marchingsquares.calculateAllWithInterpolation(this.grid, l/100));
       }
 
@@ -151,8 +151,8 @@
       }
 
       for (i=5;i>0;i--) {
-        l = this["l" + i];
-        c = this["c" + i];
+        l = this[`l${i}`];
+        c = this[`c${i}`];
         ctx.fillStyle = c;
         if (this.optimize_batchfill) {
           ctx.beginPath();
