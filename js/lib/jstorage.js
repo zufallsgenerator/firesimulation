@@ -657,10 +657,8 @@
          * @param {Number} [options.TTL] - optional TTL value
          * @return {Mixed} the used value
          */
-        set: function(key, value, options){
+        set: function(key, value, options = {}) {
             _checkKey(key);
-
-            options = options || {};
 
             // undefined values are deleted automatically
             if(typeof value == "undefined"){
