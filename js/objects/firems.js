@@ -244,8 +244,7 @@
 
     },
 
-    drawRect: function(ctx, x, y, width, height, dontFill) {
-      height = height || 1;
+    drawRect: function(ctx, x, y, width, height = 1, dontFill) {
       var xoffset, yoffset, b=this.blocksize;
       xoffset = b * x;
       yoffset = b * y;
