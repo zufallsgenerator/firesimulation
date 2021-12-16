@@ -1,20 +1,37 @@
+/*
+   Copyright 2013-2021 Christer Byström
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+*/
 /*jshint strict: true */
 /*global $ window document CB _c alert loadobjects */
-window.main = (function() {
-  'use strict';
-  let defaultConfig = [ {
-        "classname" : "Sky",
-        "values" : {
-          "light" : 0
-        }
-      }, {
-        "classname":"Firems",
-        values: {
-          x: 0,
-          y: 0
-        }
-        }
-      ];
+window.main = (function () {
+  "use strict";
+  let defaultConfig = [
+    {
+      classname: "Sky",
+      values: {
+        light: 0,
+      },
+    },
+    {
+      classname: "Firems",
+      values: {
+        x: 0,
+        y: 0,
+      },
+    },
+  ];
 
   let fpsEl;
   let textProp;
@@ -24,7 +41,7 @@ window.main = (function() {
   }
 
   function setInputValuesFromObject(obj) {
-    $("input").each(function(idx, field) {
+    $("input").each(function (idx, field) {
       const type = $(field).prop("type");
       if (obj[field.id] !== undefined) {
         if (type === "checkbox") {
@@ -44,7 +61,7 @@ window.main = (function() {
   function registerInputListeners(scene) {
     let fire;
     let propId;
-    $("input").on("change", function(evt) {
+    $("input").on("change", function (evt) {
       let newValue;
       let type = $(evt.target).prop("type");
 
@@ -61,7 +78,7 @@ window.main = (function() {
       }
     });
 
-    $.each(scene.children, function(idx, obj) {
+    $.each(scene.children, function (idx, obj) {
       if (obj instanceof CB.Firems) {
         fire = obj;
       }
@@ -71,15 +88,12 @@ window.main = (function() {
       setInputValuesFromObject(fire);
     }
 
-    $("#boostbutton").on("mousedown", function() {
+    $("#boostbutton").on("mousedown", function () {
       if (fire) {
         fire.boost();
       }
     });
   }
-
-
-
 
   function start(canvasId, controlId) {
     let canvas;
@@ -92,19 +106,21 @@ window.main = (function() {
       return;
     }
 
-    ctx = canvas.getContext('2d');
+    ctx = canvas.getContext("2d");
 
-    world = new CB.Scene({
-      config : defaultConfig
-    }, ctx);
+    world = new CB.Scene(
+      {
+        config: defaultConfig,
+      },
+      ctx
+    );
 
     registerInputListeners(world);
 
     CB.frameloop(ctx, world, null, fpsreporter);
   }
 
-
-  return function(canvasId, controlId) {
-      start(canvasId, controlId);
+  return function (canvasId, controlId) {
+    start(canvasId, controlId);
   };
 })();
